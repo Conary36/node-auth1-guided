@@ -6,6 +6,7 @@ const usersRouter = require("../users/users-router.js");
 
 const server = express();
 
+//GLOBAL MIDDLEWARE
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
