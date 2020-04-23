@@ -26,6 +26,7 @@ router.post("/login", (req, res) =>{
     Users.findBy({username})
         .then(([user])=>{
             if(user && bcrypt.compareSync(password, user.password)){
+                req.session.user = username;
                 res.status(200).json({message: 'Welcome!'});
             }else{
                 res.status(401).json({message: 'Info not matching'})
@@ -36,4 +37,13 @@ router.post("/login", (req, res) =>{
         })
 })
 
+router.get('/logout', (req,res) => {
+    req.session.destroy((err)=>{
+        if(err){
+            res.send('unable to logout')
+        }else{
+            res.send('logged out')
+        }
+    })
+})
 module.exports = router;
